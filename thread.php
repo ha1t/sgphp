@@ -1,4 +1,8 @@
 <?php
+// @TODO ページャ
+// @TODO latest50件ごと表示
+// @TODO 特定レスの表示
+
 // @note スレッド内のレス番は、識別子の先頭8桁。
 function get_thread($title)
 {
