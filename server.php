@@ -4,12 +4,28 @@ require_once 'Shingetsu_Server.php';
 
 $server = new Shingetsu_Server();
 
-$support_method = array('ping', 'node', 'have');
+$support_method = array(
+    'ping', 'node',
+    'join', 'bye',
+    'have', 'get',
+    'head', 'update',
+    'recent',
+);
+
 $pathinfo = explode('/', $_SERVER['PATH_INFO']);
-if (in_array($pathinfo[1], $support_method)) {
-    $command = $pathinfo[1];
-    $server->$command();
+
+if (!in_array($pathinfo[1], $support_method)) {
+    exit('method not support.');
+}
+
+$log_file = dirname(__FILE__) . '/log.txt';
+$log = file_get_contents($log_file);
+file_put_contents($log_file, $log . date('Y-m-d H:i:s') . '|' . $_SERVER['PATH_INFO'] . "\n");
+
+$command = $pathinfo[1];
+if (isset($pathinfo[2])) {
+    $server->$command($pathinfo[2]);
 } else {
-    exit('command not found.');
+    $server->$command();
 }
 
