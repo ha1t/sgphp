@@ -5,8 +5,8 @@
 $server = 'bbs.shingetsu.info:80/server.cgi';
 $server = 'rep4649.ddo.jp:80/server.cgi';
 $server = 'sg.sabaitiba.com:49494/server.cgi';
-$server = 'sgphp.project-p.jp/server.php';
 $server = '163.43.161.96:8000/server.cgi';
+$server = 'sgphp.project-p.jp/server.php';
 
 class Shingetsu_Client
 {
@@ -61,14 +61,14 @@ class Shingetsu_Client
     public function head($filename, $timestamp = false)
     {
         $url = $this->server . "/head/{$filename}";
-        $response = file_get_contents($url);
+        $response = $this->fetch($url);
         var_dump($url, $response);
     }
 
     public function have($filename, $timestamp = false)
     {
         $url = $this->server . "/have/{$filename}";
-        $response = trim(file_get_contents($url));
+        $response = $this->fetch($url);
 
         if ($response === "YES") {
             return true;
@@ -100,10 +100,14 @@ class Shingetsu_Client
 
 $s = new Shingetsu_Client($server);
 
+$my_node = str_replace('/', '+', 'sgphp.project-p.jp:80/server.php');
+
 //$result = $s->ping(); var_dump($result); exit;
 //$result = $s->node(); var_dump($result); exit;
-$my_node = str_replace('/', '+', 'sgphp.project-p.jp:80/server.php');
-$result = $s->join($my_node); var_dump($result); exit;
+//$result = $s->join($my_node); var_dump($result); exit;
+
+//$result = $s->have('thread_6F70657261'); var_dump($result); exit;
+$result = $s->have('thread_E69CAC'); var_dump($result); exit;
 
 //$files = $s->recent(); var_dump($files);
 
