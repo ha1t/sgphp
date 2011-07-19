@@ -2,10 +2,11 @@
 // ディスク消費が大きいので他人のURLに振り向けてでもいいかも(Coral CDN)
 // http://shingetsu.info/protocol/protocol-0.7.d1
 
-$server = 'http://bbs.shingetsu.info:80/server.cgi';
-$server = 'http://rep4649.ddo.jp:80/server.cgi';
-$server = 'http://163.43.161.96:8000/server.cgi';
-// sg.sabaitiba.com:49494/server.cgi
+$server = 'bbs.shingetsu.info:80/server.cgi';
+$server = 'rep4649.ddo.jp:80/server.cgi';
+$server = 'sg.sabaitiba.com:49494/server.cgi';
+$server = 'sgphp.project-p.jp/server.php';
+$server = '163.43.161.96:8000/server.cgi';
 
 class Shingetsu_Client
 {
@@ -24,7 +25,7 @@ class Shingetsu_Client
                 'header' => 'User-Agent: shinGETsu/0.7 (sgphp/0.1)',
             ))
         );
-        return trim(file_get_contents($url, false, $context));
+        return trim(file_get_contents('http://' . $url, false, $context));
     }
 
     public function ping()
@@ -89,15 +90,22 @@ class Shingetsu_Client
 
         return $response;
     }
+
+    public function join($my_node)
+    {
+        $url = $this->server . "/join/{$my_node}";
+        return $this->fetch($url);
+    }
 }
 
 $s = new Shingetsu_Client($server);
 
 //$result = $s->ping(); var_dump($result); exit;
 //$result = $s->node(); var_dump($result); exit;
+$my_node = str_replace('/', '+', 'sgphp.project-p.jp:80/server.php');
+$result = $s->join($my_node); var_dump($result); exit;
 
-$files = $s->recent();
-var_dump($files);
+//$files = $s->recent(); var_dump($files);
 
 /*
 foreach ($files as $file) {
