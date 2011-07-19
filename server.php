@@ -20,7 +20,7 @@ if (!in_array($pathinfo[1], $support_method)) {
 
 $log_file = dirname(__FILE__) . '/log.txt';
 $log = file_get_contents($log_file);
-$log = $log . date('Y-m-d H:i:s') . '|' . $_SERVER['REMOTE_ADDR'] . '|' . $_SERVER['PATH_INFO'] . "\n";
+$log = $log . date('Y-m-d H:i:s') . "|{$_SERVER['REMOTE_ADDR']}:{$_SERVER['REMOTE_PORT']}|" . $_SERVER['PATH_INFO'] . "\n";
 file_put_contents($log_file, $log);
 
 $command = $pathinfo[1];
