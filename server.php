@@ -24,7 +24,9 @@ $log = $log . date('Y-m-d H:i:s') . "|{$_SERVER['REMOTE_ADDR']}:{$_SERVER['REMOT
 file_put_contents($log_file, $log);
 
 $command = $pathinfo[1];
-if (isset($pathinfo[2])) {
+if ($command === 'join') {
+    $server->join($pathinfo[2], $_SERVER['REMOTE_ADDR']);
+} else if (isset($pathinfo[2])) {
     $server->$command($pathinfo[2]);
 } else {
     $server->$command();

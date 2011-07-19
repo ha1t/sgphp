@@ -100,14 +100,15 @@ class Shingetsu_Client
 
 $s = new Shingetsu_Client($server);
 
-$my_node = str_replace('/', '+', 'sgphp.project-p.jp:80/server.php');
 
 //$result = $s->ping(); var_dump($result); exit;
 //$result = $s->node(); var_dump($result); exit;
-//$result = $s->join($my_node); var_dump($result); exit;
+
+$my_node = str_replace('/', '+', ':80/server.php');
+$result = $s->join($my_node); var_dump($result); exit;
 
 //$result = $s->have('thread_6F70657261'); var_dump($result); exit;
-$result = $s->have('thread_E69CAC'); var_dump($result); exit;
+//$result = $s->have('thread_E69CAC'); var_dump($result); exit;
 
 //$files = $s->recent(); var_dump($files);
 
