@@ -17,13 +17,30 @@ class Shingetsu_Server
         header('Content-Type: text/plain; charset=UTF-8');
         $lines = file('nodelist.txt');
         shuffle($lines);
-        echo current($lines);
+        echo trim(current($lines));
     }
 
-    public function recent()
+    public function recent($timestamp = false)
     {
-        foreach (glob('data/*') as $file) {
+        $items = array();
+        foreach (glob('data/*') as $filename) {
+            $encode_name = str_replace('thread_', '', basename($filename));
+            $timestamp = filemtime($filename);
+            $items[$timestamp] = array(
+                'timestamp' => $timestamp,
+                'id' => md5($filename),
+                'filename' => basename($filename),
+            );
         }
+        ksort($items);
+
+        $response = '';
+        foreach ($items as $item) {
+            $response .= "{$item['timestamp']}<>{$item['id']}<>{$item['filename']}" . PHP_EOL;
+        }
+
+        header('Content-Type: text/plain; charset=UTF-8');
+        echo $response;
     }
 
     // @TODO 相手にpingが通るか確認する
@@ -39,7 +56,7 @@ class Shingetsu_Server
 
         $lines = file('nodelist.txt');
         if (!in_array($node, $lines)) {
-            $lines[] = "\n" . $node;
+            $lines[] = $node . "\n";
             file_put_contents('nodelist.txt', implode('', $lines));
         }
 
@@ -75,6 +92,17 @@ class Shingetsu_Server
 
         echo 'NO';
         return false;
+    }
+
+    // @TODO 各種引数に応じたレス
+    public function get()
+    {
+        header('Content-Type: text/plain; charset=UTF-8');
+        foreach (glob('data/*') as $filename) {
+            if ($thread_name == basename($filename)) {
+                echo file_get_contents($filename);
+            }
+        }
     }
 }
 
