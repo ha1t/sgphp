@@ -54,8 +54,17 @@ class Shingetsu_Server
         echo 'BYEBYE';
     }
 
-    public function have()
+    public function have($thread_name)
     {
+        foreach (glob('data/*') as $filename) {
+            if ($thread_name == basename($filename)) {
+                echo 'YES';
+                return true;
+            }
+        }
+
+        echo 'NO';
+        return false;
     }
 }
 
