@@ -57,6 +57,7 @@ class Shingetsu_Server
         $lines = file('nodelist.txt');
         if (!in_array($node, $lines)) {
             $lines[] = $node . "\n";
+            $lines = array_unique($lines);
             file_put_contents('nodelist.txt', implode('', $lines));
         }
 
@@ -103,6 +104,15 @@ class Shingetsu_Server
                 echo file_get_contents($filename);
             }
         }
+    }
+
+    // /update/ファイル名/時刻/識別子/ノード名
+    public function update($filename, $timestamp, $id, $node)
+    {
+        // 手持ちのファイルかどうか確認する
+        // 持っていなければ受け取る
+        // 持っていれば差分を取得
+        // ノード名を自分のものに変更して、他のノードに投げる
     }
 }
 
