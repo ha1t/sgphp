@@ -50,7 +50,8 @@ function crawl($s)
 
         if ($s->have($file['filename'])) {
             $data = $s->get($file['filename'], '0-');
-            file_put_contents('data/' . $file['filename'], $data);
+            file_put_contents("data/{$file['filename']}", $data);
+            chmod("data/{$file['filename']}", 0666);
             touch("data/{$file['filename']}", $file['timestamp']);
             sleep(1);
         }
@@ -58,23 +59,18 @@ function crawl($s)
     }
 }
 
-$re = file_get_contents('http://sgphp.project-p.jp/server.php/update/thread_E3818CEFBD9EE3828AE381A3E3818FE381AEE697A5E8A898/1311085121/f9e7ab5f2dc9b4293fa8a17a1cdc9c94/:8000+server.cgi');
-var_dump($re);
-exit;
-
-$s = new Shingetsu_Client($server);
+$s = new Shingetsu_Client($my_server);
 
 //$result = $s->ping(); var_dump($result); exit;
-//$node = $s->node(); var_dump($node); exit;
 
-//crawl(new Shingetsu_Client($s->node()));
+$node = $s->node(); var_dump($node); exit;
+crawl(new Shingetsu_Client($s->node()));
 
-
-$my_node = str_replace('/', '+', ':80/server.php');
+//$my_node = str_replace('/', '+', ':80/server.php');
 //$result = $s->join($my_node); var_dump($result); exit;
 
 //$result = $s->have('thread_6F70657261'); var_dump($result); exit;
-$result = $s->have('thread_E69CAC'); var_dump($result); exit;
+//$result = $s->have('thread_E69CAC'); var_dump($result); exit;
 
 //get_thread($s, 'thread_503250');
 
