@@ -24,8 +24,8 @@ $log = $log . date('Y-m-d H:i:s') . "|{$_SERVER['REMOTE_ADDR']}|{$_SERVER['PATH_
 file_put_contents($log_file, $log);
 
 $command = $pathinfo[1];
-if ($command === 'join') {
-    $server->join($pathinfo[2], $_SERVER['REMOTE_ADDR']);
+if ($command === 'join' || $command === 'bye') {
+    $server->$command($pathinfo[2], $_SERVER['REMOTE_ADDR']);
 } else if ($command === 'get' || $command === 'head') {
     $id = false;
     if (isset($pathinfo[4])) {
