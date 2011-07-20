@@ -26,7 +26,7 @@ file_put_contents($log_file, $log);
 $command = $pathinfo[1];
 if ($command === 'join') {
     $server->join($pathinfo[2], $_SERVER['REMOTE_ADDR']);
-} else if ($command === 'get' || $command == 'head') {
+} else if ($command === 'get' || $command === 'head') {
     $id = false;
     if (isset($pathinfo[4])) {
         $id = $pathinfo[4];
