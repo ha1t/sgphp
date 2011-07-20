@@ -1,4 +1,7 @@
 <?php
+
+require_once 'Shingetsu_Client.php';
+
 /**
  * Shingetsu_Server
  *
@@ -96,22 +99,57 @@ class Shingetsu_Server
     }
 
     // @TODO 各種引数に応じたレス
-    public function get()
+    public function head($thread_name, $timestamp, $id = false)
     {
         header('Content-Type: text/plain; charset=UTF-8');
         foreach (glob('data/*') as $filename) {
             if ($thread_name == basename($filename)) {
-                echo file_get_contents($filename);
+                $file = file($filename);
+                $parts = explode('<>', end($file));
+                echo "{$parts[0]}<>{$parts[1]}";
+                return;
             }
+        }
+    }
+
+    // @TODO 各種引数に応じたレス
+    public function get($thread_name, $timestamp, $id = false)
+    {
+        header('Content-Type: text/plain; charset=UTF-8');
+
+        $is_exists = false;
+        foreach (glob('data/*') as $filename) {
+            if ($thread_name == basename($filename)) {
+                $is_exists = true;
+                break;
+            }
+        }
+
+        if ($is_exists) {
+            echo file_get_contents('data/' . $thread_name);
         }
     }
 
     // /update/ファイル名/時刻/識別子/ノード名
     public function update($filename, $timestamp, $id, $node)
     {
+        $node = str_replace('+', '/', $node);
+        $client = new Shingetsu_Client($node);
+
         // 手持ちのファイルかどうか確認する
-        // 持っていなければ受け取る
-        // 持っていれば差分を取得
+        // 持っていなければ受け取る || 持っていれば差分を取得
+        if ($this->have($filename)) {
+            $response = $client->get($filename);
+        } else {
+            $response = $client->get($filename);
+        }
+
+        $lines = explode("\n", $response);
+        $parts = explode('<>', end($lines));
+
+        file_put_contents('data/' . $filename, $response);
+        touch('data/' . $filename, $parts[0]);
+
         // ノード名を自分のものに変更して、他のノードに投げる
     }
 }
