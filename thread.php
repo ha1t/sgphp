@@ -22,7 +22,8 @@ function get_thread($title)
         $thread = array(
             'name' => '',
             'timestamp' => array_shift($parts),
-            'id' => array_shift($parts)
+            'id' => array_shift($parts),
+            'body' => '',
         );
         $thread['datetime'] = date('Y-m-d H:i:s', $thread['timestamp']);
 
