@@ -20,12 +20,14 @@ if (!in_array($pathinfo[1], $support_method)) {
 
 $log_file = dirname(__FILE__) . '/log.txt';
 $log = file_get_contents($log_file);
-$log = $log . date('Y-m-d H:i:s') . "|{$_SERVER['REMOTE_ADDR']}:{$_SERVER['REMOTE_PORT']}|" . $_SERVER['PATH_INFO'] . "\n";
+$log = $log . date('Y-m-d H:i:s') . "|{$_SERVER['REMOTE_ADDR']}|{$_SERVER['PATH_INFO']}\n";
 file_put_contents($log_file, $log);
 
 $command = $pathinfo[1];
 if ($command === 'join') {
     $server->join($pathinfo[2], $_SERVER['REMOTE_ADDR']);
+} else if ($command === 'update') {
+    $server->update($pathinfo[2], $pathinfo[3], $pathinfo[4], $pathinfo[5]);
 } else if (isset($pathinfo[2])) {
     $server->$command($pathinfo[2]);
 } else {
