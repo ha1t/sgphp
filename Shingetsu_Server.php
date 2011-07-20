@@ -9,6 +9,8 @@ require_once 'Shingetsu_Client.php';
  */
 class Shingetsu_Server
 {
+    public $nodelist = 'data/nodelist.txt';
+
     public function ping()
     {
         header('Content-Type: text/plain; charset=UTF-8');
@@ -18,7 +20,7 @@ class Shingetsu_Server
     public function node()
     {
         header('Content-Type: text/plain; charset=UTF-8');
-        $lines = file('nodelist.txt');
+        $lines = file($this->nodelist);
         shuffle($lines);
         echo trim(current($lines));
     }
@@ -57,11 +59,11 @@ class Shingetsu_Server
             $node = $remote_addr . $node;
         }
 
-        $lines = file('nodelist.txt');
+        $lines = file($this->nodelist);
         if (!in_array($node, $lines)) {
             $lines[] = $node . "\n";
             $lines = array_unique($lines);
-            file_put_contents('nodelist.txt', implode('', $lines));
+            file_put_contents($this->nodelist, implode('', $lines));
         }
 
         echo 'WELCOME';
@@ -78,14 +80,14 @@ class Shingetsu_Server
             $node = $remote_addr . $node;
         }
 
-        $lines = file('nodelist.txt');
+        $lines = file($this->nodelist);
         foreach ($lines as $key => $line) {
             if ($line == $node) {
                 unset($lines[$key]);
                 break;
             }
         }
-        file_put_contents('nodelist.txt', implode('', $lines));
+        file_put_contents($this->nodelist, implode('', $lines));
 
         echo 'BYEBYE';
     }
