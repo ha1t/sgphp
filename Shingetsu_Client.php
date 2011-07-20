@@ -57,14 +57,15 @@ class Shingetsu_Client
     public function head($filename, $timestamp = false)
     {
         $url = $this->server . "/head/{$filename}";
-        $response = $this->fetch($url);
-        var_dump($url, $response);
+        if ($timestamp) {
+            $url .= '/' . $timestamp;
+        }
+        return $this->fetch($url);
     }
 
     public function have($filename, $timestamp = false)
     {
         $url = $this->server . "/have/{$filename}";
-        var_dump(get_headers('http://' . $url)); exit;
         $response = $this->fetch($url);
 
         if ($response === "YES") {
