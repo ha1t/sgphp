@@ -1,8 +1,13 @@
 <?php
-
 require_once 'Shingetsu_Server.php';
 
 $server = new Shingetsu_Server();
+
+if (!file_exists($server->nodelist)) {
+    touch($server->nodelist);
+    chmod($server->nodelist, 0666);
+    file_put_contents($server->nodelist, "sg.sabaitiba.com\n");
+}
 
 $support_method = array(
     'ping', 'node',
@@ -18,7 +23,11 @@ if (!in_array($pathinfo[1], $support_method)) {
     exit('method not support.');
 }
 
-$log_file = dirname(__FILE__) . '/log.txt';
+$log_file = dirname(__FILE__) . '/data/log.txt';
+if (!file_exists($log_file)) {
+    touch($log_file);
+    chmod($log_file, 0666);
+}
 $log = file_get_contents($log_file);
 $log = $log . date('Y-m-d H:i:s') . "|{$_SERVER['REMOTE_ADDR']}|{$_SERVER['PATH_INFO']}\n";
 file_put_contents($log_file, $log);
