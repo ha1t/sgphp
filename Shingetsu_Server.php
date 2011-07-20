@@ -149,6 +149,7 @@ class Shingetsu_Server
         error_log('EEE:' . $parts[0]);
 
         file_put_contents('data/' . $filename, $response);
+        chmod("data/{$filename}", 0666);
         touch('data/' . $filename, $parts[0]);
 
         // ノード名を自分のものに変更して、他のノードに投げる
