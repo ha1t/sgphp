@@ -138,14 +138,15 @@ class Shingetsu_Server
 
         // 手持ちのファイルかどうか確認する
         // 持っていなければ受け取る || 持っていれば差分を取得
-        if ($this->have($filename)) {
-            $response = $client->get($filename);
+        if ($client->have($filename)) {
+            $response = $client->get($filename, '-' . time());
         } else {
-            $response = $client->get($filename);
+            $response = $client->get($filename, '-' . time());
         }
 
         $lines = explode("\n", $response);
         $parts = explode('<>', end($lines));
+        error_log('EEE:' . $parts[0]);
 
         file_put_contents('data/' . $filename, $response);
         touch('data/' . $filename, $parts[0]);
