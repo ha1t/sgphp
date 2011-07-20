@@ -63,7 +63,7 @@ $s = new Shingetsu_Client($my_server);
 
 //$result = $s->ping(); var_dump($result); exit;
 
-$node = $s->node(); var_dump($node); exit;
+//$node = $s->node(); var_dump($node); exit;
 crawl(new Shingetsu_Client($s->node()));
 
 //$my_node = str_replace('/', '+', ':80/server.php');
