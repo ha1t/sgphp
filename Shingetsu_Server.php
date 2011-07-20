@@ -68,15 +68,21 @@ class Shingetsu_Server
     }
 
     // @TODO 相手にpingが通るか確認する
-    public function bye($node)
+    public function bye($node, $remote_addr)
     {
         header('Content-Type: text/plain; charset=UTF-8');
         $node = str_replace('+', '/', $node);
+
+        // ホスト名が省略されていた場合、REMOTE_ADDRを使う
+        if ($node[0] === ':') {
+            $node = $remote_addr . $node;
+        }
 
         $lines = file('nodelist.txt');
         foreach ($lines as $key => $line) {
             if ($line == $node) {
                 unset($lines[$key]);
+                break;
             }
         }
         file_put_contents('nodelist.txt', implode('', $lines));
@@ -146,7 +152,6 @@ class Shingetsu_Server
 
         $lines = explode("\n", $response);
         $parts = explode('<>', end($lines));
-        error_log('EEE:' . $parts[0]);
 
         file_put_contents('data/' . $filename, $response);
         chmod("data/{$filename}", 0666);
