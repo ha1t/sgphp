@@ -7,7 +7,8 @@
 function get_threads()
 {
     $items = array();
-    foreach (glob('data/thread_*') as $filename) {
+    $files = glob("data/thread_*");
+    if ($files) foreach ($files as $filename) {
         $encode_name = str_replace('thread_', '', basename($filename));
         $timestamp = filemtime($filename);
         $items[$timestamp] = array(

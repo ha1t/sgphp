@@ -59,9 +59,11 @@ function crawl($s)
     }
 }
 
+$my_server = 'ppp.es.land.to:80/server.php';
 $s = new Shingetsu_Client($my_server);
 
-//$result = $s->ping(); var_dump($result); exit;
+var_dump(get_headers('http://ppp.es.land.to/server.php'));
+$result = $s->ping(); var_dump($result); exit;
 
 //$node = $s->node(); var_dump($node); exit;
 crawl(new Shingetsu_Client($s->node()));
