@@ -18,7 +18,14 @@ $support_method = array(
     'recent',
 );
 
-$pathinfo = explode('/', $_SERVER['PATH_INFO']);
+$pathinfo = array();
+if (isset($_SERVER['PATH_INFO'])) {
+    $pathinfo = explode('/', $_SERVER['PATH_INFO']);
+}
+
+if (!isset($pathinfo[1])) {
+    exit('method not found.');
+}
 
 if (!in_array($pathinfo[1], $support_method)) {
     exit('method not support.');
@@ -47,7 +54,12 @@ if ($command === 'join' || $command === 'bye') {
     if ($node[0] == ':') {
         $node = $_SERVER['REMOTE_ADDR'] . $node;
     }
-    $server->update($pathinfo[2], $pathinfo[3], $pathinfo[4], $node);
+    $server->update(
+        $filename = $pathinfo[2],
+        $timestamp = $pathinfo[3],
+        $id = $pathinfo[4],
+        $node
+    );
 } else if (isset($pathinfo[2])) {
     $server->$command($pathinfo[2]);
 } else {
