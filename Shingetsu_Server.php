@@ -1,6 +1,5 @@
 <?php
-
-require_once 'Shingetsu_Client.php';
+require_once dirname(__FILE__) . '/Shingetsu_Client.php';
 
 /**
  * Shingetsu_Server

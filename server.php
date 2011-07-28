@@ -1,5 +1,6 @@
 <?php
-require_once 'Shingetsu_Server.php';
+require_once dirname(__FILE__) . '/Shingetsu_Server.php';
+require_once dirname(__FILE__) . '/config.php';
 
 $server = new Shingetsu_Server();
 
