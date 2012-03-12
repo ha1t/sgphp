@@ -3,29 +3,28 @@
  *
  *
  */
+require_once dirname(__FILE__) . '/storage.php';
 
-function get_threads()
-{
-    $items = array();
-    $files = glob("data/thread_*");
-    if ($files) foreach ($files as $filename) {
-        $encode_name = str_replace('thread_', '', basename($filename));
-        $timestamp = filemtime($filename);
-        $items[$timestamp] = array(
-            'title' => pack('H*', $encode_name),
-            'timestamp' => $timestamp,
-            'datetime' => date('Y-m-d H:i:s', $timestamp),
-        );
-    }
-
-    krsort($items);
-    return $items;
-}
-
-$items = get_threads();
+$items = Storage::getThreads(); 
 header('Content-Type: text/html; charset=UTF-8');
 ?>
 <html>
+<head>
+<title>sgphp gateway</title>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8020577-13']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
 <body>
 <h1>sgphp - 新月PHP実装</h1>
 <h2>TODO</h2>
