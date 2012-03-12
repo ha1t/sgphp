@@ -3,7 +3,7 @@
  *
  *
  */
-class storage
+class Storage
 {
     public static function getThreads()
     {
