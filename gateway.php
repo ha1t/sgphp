@@ -10,7 +10,12 @@ header('Content-Type: text/html; charset=UTF-8');
 ?>
 <html>
 <head>
+<meta charset="utf-8">
 <title>sgphp gateway</title>
+<link href="./css/bootstrap.css.1" rel="stylesheet">
+<link href="./css/bootstrap-responsive.css" rel="stylesheet">
+
+
 <script type="text/javascript">
 
   var _gaq = _gaq || [];

@@ -28,6 +28,8 @@ header('Content-Type: text/html; charset=UTF-8');
 <html>
 <head>
   <title><?php echo $title; ?></title>
+<link href="/css/bootstrap.css.1" rel="stylesheet">
+<link href="/css/bootstrap-responsive.css" rel="stylesheet">
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-8020577-13']);
