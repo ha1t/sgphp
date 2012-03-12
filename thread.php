@@ -10,6 +10,9 @@ require_once dirname(__FILE__) . '/storage.php';
 $pathinfo = explode('/', $_SERVER['PATH_INFO']);
 $title = $pathinfo[1];
 $threads = Storage::getThread($title);
+if ($threads === false) {
+    exit('対象のスレッドは存在しないか、巨大になりすぎているため表示できません。');
+}
 
 if (isset($pathinfo[2])) {
     $ident_prefix = $pathinfo[2];
@@ -21,9 +24,6 @@ if (isset($pathinfo[2])) {
 }
 
 header('Content-Type: text/html; charset=UTF-8');
-if ($threads === false) {
-    exit('page not found.');
-}
 ?>
 <html>
 <head>
