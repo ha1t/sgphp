@@ -31,6 +31,10 @@ class storage
             return false;
         }
 
+        $filesize = filesize($filename); 
+        if ($filesize > (1024 * 1024 * 20)) {
+            return false;
+        }
         $raw_data = file_get_contents($filename);
 
         $threads = array();
@@ -46,7 +50,7 @@ class storage
             );
             $thread['datetime'] = date('Y-m-d H:i:s', $thread['timestamp']);
 
-            while(count($parts) > 0) {
+            while (count($parts) > 0) {
                 if (strpos($parts[0], 'name:') === 0) {
                     $thread['name'] = array_shift($parts);
                 } else if (strpos($parts[0], 'mail:') === 0) {
