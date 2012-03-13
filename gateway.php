@@ -31,18 +31,40 @@ header('Content-Type: text/html; charset=UTF-8');
 </script>
 </head>
 <body>
-<h1>sgphp - 新月PHP実装</h1>
-<h2>TODO</h2>
-<ul>
-  <li>Serverの実装</li>
-  <li>Serverの実装:投稿ができるように</li>
-  <li>Threadのパーサを強化:attachを表示できるように</li>
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+<ul class="nav">
+  <li>
+    <a class="brand" href="#">sgphp - 新月PHP実装</a>
+  </li>
 </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6 alert">
+    sgphpは開発途中です。本家の新月と比較すると、未実装の機能などがあるため、一部正常に動作していない画面などがあります。
+  </div>
+  <div class="span6">
+    <h2>TODO</h2>
+    <ul>
+      <li>Serverの実装</li>
+      <li>Serverの実装:投稿ができるように</li>
+      <li>Threadのパーサを強化:attachを表示できるように</li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
 <h2>スレッド一覧</h2>
 <ul>
 <?php foreach ($items as $item): ?>
 <?php echo "<li>{$item['datetime']}&nbsp;<a href=\"thread.php/{$item['title']}\">{$item['title']}</a></li>" . PHP_EOL; ?>
 <?php endforeach; ?>
 </ul>
+</div>
+
 </body>
 </html>
