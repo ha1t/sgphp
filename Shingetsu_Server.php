@@ -5,6 +5,7 @@ require_once dirname(__FILE__) . '/Shingetsu_Client.php';
  * Shingetsu_Server
  *
  * @url http://shingetsu.info/protocol/protocol-0.7.d1
+ * @url http://shingetsu.info/tech/cache
  */
 class Shingetsu_Server
 {
