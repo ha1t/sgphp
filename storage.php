@@ -5,6 +5,7 @@
  */
 class Storage
 {
+    // ファイル名一覧を抽出して、ファイル名からスレッド名を取り出す
     public static function getThreads()
     {
         $items = array();
@@ -23,6 +24,7 @@ class Storage
         return $items;
     }
 
+    // タイトルを元にファイルを取り出しパースして返す
     public static function getThread($title)
     {
         $filename = 'data/thread_' . strtoupper(bin2hex($title));
@@ -31,12 +33,21 @@ class Storage
             return false;
         }
 
+        // 20M以上のファイルの場合false
         $filesize = filesize($filename); 
         if ($filesize > (1024 * 1024 * 20)) {
             return false;
         }
-        $raw_data = file_get_contents($filename);
 
+        $raw_data = file_get_contents($filename);
+        $threads = self::parse($raw_data); 
+
+        return $threads;
+    }
+
+    // スレッドデータをパースして返す
+    private static function parse($raw_data) 
+    {
         $threads = array();
         $remove_ids = array();
         $lines = explode("\n", $raw_data);
