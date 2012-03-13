@@ -43,14 +43,32 @@ header('Content-Type: text/html; charset=UTF-8');
 </script>
 </head>
 <body>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+<ul class="nav">
+  <li>
+    <a class="brand" href="/">sgphp - 新月PHP実装</a>
+  </li>
+</ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
   <h1><?php echo $title; ?></h1>
   <hr>
+  <?php $i = 1 ?>
   <?php foreach($threads as $thread): ?>
+    <?php echo $i . ' : '  ?>
     <?php echo '<a href="/thread.php/' . $title . '/' . substr($thread['id'], 0, 8) . '">' . substr($thread['id'], 0, 8) . '</a>' ?>
     <span style="color:green;"><?php echo $thread['datetime']; ?></span><br />
     <?php echo $thread['body']; ?><br />
 <?php if (isset($thread['attach']) && $thread['suffix'] == 'jpg') echo "<img src=\"data:image/jpg;base64,{$thread['attach']}\">"; ?>
     <hr>
+    <?php $i += 1 ?>
   <?php endforeach; ?>
+</div>
 </body>
 </html>
