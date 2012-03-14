@@ -156,8 +156,14 @@ class Shingetsu_Server
         $parts = explode('<>', end($lines));
 
         file_put_contents('data/' . $filename, $response);
-        chmod("data/{$filename}", 0666);
-        touch('data/' . $filename, $parts[0]);
+        $result = chmod("data/{$filename}", 0666);
+        if ($result === false) {
+            error_log('chmod failed:' . $filename); 
+        } 
+        $result = touch("data/{$filename}", $parts[0]);
+        if ($result === false) {
+            error_log('touch failed:' . $filename); 
+        } 
 
         // ノード名を自分のものに変更して、他のノードに投げる
     }
