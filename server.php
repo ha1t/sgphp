@@ -7,7 +7,7 @@ $server = new Shingetsu_Server();
 if (!file_exists($server->nodelist)) {
     touch($server->nodelist);
     chmod($server->nodelist, 0666);
-    file_put_contents($server->nodelist, "sg.sabaitiba.com\n");
+    file_put_contents($server->nodelist, 'node.shingetsu.info:8000/server.cgi' . PHP_EOL);
 }
 
 $support_method = array(
