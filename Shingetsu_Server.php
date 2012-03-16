@@ -120,25 +120,19 @@ class Shingetsu_Server
         }
     }
 
-    // @TODO 各種引数に応じたレス
+    // @TODO 各種引数に応じたレスを返すように作りなおす
     public function get($thread_name, $timestamp, $id = false)
     {
+        if (!file_exists('data/' . $thread_name)) {
+            return false;
+        }
+
         header('Content-Type: text/plain; charset=UTF-8');
-
-        $is_exists = false;
-        foreach (glob('data/*') as $filename) {
-            if ($thread_name == basename($filename)) {
-                $is_exists = true;
-                break;
-            }
-        }
-
-        if ($is_exists) {
-            echo file_get_contents('data/' . $thread_name);
-        }
+        $fp = fopen('data/' . $thread_name, 'r');
+        fpassthru($fp);
     }
 
-    // /update/ファイル名/時刻/識別子/ノード名
+    // @note /update/ファイル名/時刻/識別子/ノード名
     public function update($filename, $timestamp, $id, $node)
     {
         $node = str_replace('+', '/', $node);
