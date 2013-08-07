@@ -1,11 +1,7 @@
 <?php
-/**
- *
- *
- */
 require_once dirname(__FILE__) . '/storage.php';
 
-$items = Storage::getThreads(); 
+$items = Storage::getThreads();
 header('Content-Type: text/html; charset=UTF-8');
 ?>
 <html>
