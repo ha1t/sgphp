@@ -34,19 +34,19 @@ class Storage
         }
 
         // 20M以上のファイルの場合false
-        $filesize = filesize($filename); 
+        $filesize = filesize($filename);
         if ($filesize > (1024 * 1024 * 20)) {
             return false;
         }
 
         $raw_data = file_get_contents($filename);
-        $threads = self::parse($raw_data); 
+        $threads = self::parse($raw_data);
 
         return $threads;
     }
 
     // スレッドデータをパースして返す
-    private static function parse($raw_data) 
+    private static function parse($raw_data)
     {
         $threads = array();
         $remove_ids = array();
