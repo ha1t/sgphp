@@ -152,12 +152,12 @@ class Shingetsu_Server
         file_put_contents('data/' . $filename, $response);
         $result = chmod("data/{$filename}", 0666);
         if ($result === false) {
-            error_log('chmod failed:' . $filename); 
-        } 
+            error_log('chmod failed:' . $filename);
+        }
         $result = touch("data/{$filename}", $parts[0]);
         if ($result === false) {
-            error_log('touch failed:' . $filename); 
-        } 
+            error_log('touch failed:' . $filename);
+        }
 
         // ノード名を自分のものに変更して、他のノードに投げる
     }
