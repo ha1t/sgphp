@@ -36,7 +36,7 @@ function add_node($server, $my_server)
     $result = $ms->join($result); var_dump($result); exit;
 }
 
-function crawl($s)
+function crawl(Shingetsu_Client $s)
 {
     $files = $s->recent();
     rsort($files);
