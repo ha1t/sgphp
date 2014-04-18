@@ -30,13 +30,13 @@ class Storage
         $filename = 'data/thread_' . strtoupper(bin2hex($title));
 
         if (!file_exists($filename)) {
-            return false;
+            throw new RuntimeException('Contents not found.');
         }
 
         // 20M以上のファイルの場合false
         $filesize = filesize($filename);
         if ($filesize > (1024 * 1024 * 20)) {
-            return false;
+            throw new RuntimeException('Contents over size.');
         }
 
         $raw_data = file_get_contents($filename);
