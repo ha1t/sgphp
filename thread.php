@@ -4,15 +4,13 @@
 // @TODO 特定レスの表示
 
 require_once dirname(__FILE__) . '/storage.php';
+require_once dirname(__FILE__) . '/vendor/SimplePagination.php';
 
 // @note スレッド内のレス番は、識別子の先頭8桁。
 
 $pathinfo = explode('/', $_SERVER['PATH_INFO']);
 $title = $pathinfo[1];
 $threads = Storage::getThread($title);
-if ($threads === false) {
-    exit('対象のスレッドは存在しないか、巨大になりすぎているため表示できません。');
-}
 
 if (isset($pathinfo[2])) {
     $ident_prefix = $pathinfo[2];
