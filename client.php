@@ -2,13 +2,8 @@
 // ディスク消費が大きいので他人のURLに振り向けてでもいいかも(Coral CDN)
 // http://shingetsu.info/protocol/protocol-0.7.d1
 
-require_once 'Shingetsu_Client.php';
-
-$my_server = 'sgphp.project-p.jp/server.php';
-$server = '163.43.161.96:8000/server.cgi';
-$server = 'sg.sabaitiba.com:49494/server.cgi';
-$server = $my_server;
-$server = 'rep4649.ddo.jp:80/server.cgi';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/Shingetsu_Client.php';
 
 function get_thread($s, $filename)
 {
@@ -59,7 +54,7 @@ function crawl(Shingetsu_Client $s)
     }
 }
 
-$s = new Shingetsu_Client($my_server);
+$s = new Shingetsu_Client(SERVER_ADDRESS);
 //$node = $s->node(); var_dump($node); exit;
 crawl(new Shingetsu_Client($s->node()));
 
